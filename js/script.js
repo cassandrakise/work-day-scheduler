@@ -6,7 +6,7 @@ var eventDetails;
 
 
 // global variable definitions
-var hourBlock = $(".hour-block");
+var hourBlock = $(".time-block");
 var saveBtn = $("#saveBtn");
 var textArea1 = $("#textArea1");
 var scheduleInfo = $("#container");
@@ -20,18 +20,17 @@ scheduleInfo.on("click", ".saveBtn", function() {
      localStorage.setItem(hour, text);
 });
 function colorCode(){
-    console.log("colorCode");
-    var timeNow = moment().hour;
-    hourBlock.each(function(el, i){
-        var selectedTime = parseInt($(this).attr("id").split());
-        console.log(selectedTime);
+    var timeNow = Number(moment().format("H"));
+    hourBlock.each(function(i, el){
+        var selectedTime = $(el).data("hour");
+    
 
-        if (selectedTime > timeNow) {
+        if (selectedTime < timeNow) { // how should these classes be added in the html
             $(this).removeClass("future");
             $(this).removeClass("present");
             $(this).addClass("past");
 
-         } else if (currHour === timeNow){
+         } else if (selectedTime === timeNow){ 
             $(this).removeClass("future");
             $(this).addClass("present");
             $(this).removeClass("past");
